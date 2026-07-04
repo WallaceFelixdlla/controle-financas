@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha do Cliente - Controle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+        <!-- Cabeçalho com botão de voltar -->
+        <header class="cabecalho cabecalho-cliente">
+            <a href="index.html" class="btn-voltar">← Voltar</a>
+            <h1>Ficha do Cliente</h1>
+        </header>
+
+        <!-- Bloco 1: Dados do Cliente -->
+        <section class="card card-formulario">
+            <div class="cabecalho-secao">
+                <h2>Dados do cliente</h2>
+            </div>
+            
+            <div class="layout-cliente">
+                <!-- Foto do Cliente -->
+                <div class="foto-perfil">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="Foto do Cliente">
+                    <button class="btn-alterar-foto">Alterar Foto</button>
+                </div>
+
+                <!-- Formulário de Dados -->
+                <div class="form-dados">
+                    <div class="grupo-input">
+                        <label>Nome:</label>
+                        <input type="text" placeholder="Digite o nome completo">
+                    </div>
+                    <div class="grupo-input">
+                        <label>Cidade:</label>
+                        <input type="text" placeholder="Ex: Parnamirim">
+                    </div>
+                    <div class="grupo-input">
+                        <label>Bairro:</label>
+                        <input type="text" placeholder="Nome do bairro">
+                    </div>
+                    <div class="grupo-input">
+                        <label>Rua:</label>
+                        <input type="text" placeholder="Nome da rua e número">
+                    </div>
+                    <div class="grupo-input">
+                        <label>WhatsApp:</label>
+                        <input type="tel" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botão Novo Serviço -->
+        <div class="area-acoes-centro">
+            <button class="btn-verde-destaque">+ Novo Serviço</button>
+        </div>
+
+        <!-- Bloco 2: Serviço Prestado -->
+        <section class="card card-formulario">
+            <div class="cabecalho-secao">
+                <h2>Serviço</h2>
+            </div>
+
+            <div class="form-servico">
+                <div class="grupo-input">
+                    <label>Serviço:</label>
+                    <input type="text" placeholder="Descrição do que foi feito">
+                </div>
+                <div class="grupo-input">
+                    <label>Equipamento eletrônico:</label>
+                    <input type="text" placeholder="Ex: Computador, Celular...">
+                </div>
+                <div class="grupo-input">
+                    <label>Material:</label>
+                    <input type="text" placeholder="Peças ou materiais utilizados">
+                </div>
+                
+                <!-- Valores lado a lado -->
+                <div class="linha-valores">
+                    <div class="grupo-input">
+                        <label>Valor Bruto (R$):</label>
+                        <input type="number" placeholder="0,00">
+                    </div>
+                    <div class="grupo-input">
+                        <label>Valor Líquido (R$):</label>
+                        <input type="number" placeholder="0,00">
+                    </div>
+                </div>
+
+                <!-- Anexos e Data -->
+                <div class="linha-rodape-servico">
+                    <div class="area-anexos">
+                        <!-- Usando label para estilizar o input de arquivo (que é feio por padrão) -->
+                        <label class="btn-laranja" for="upload-anexo">📎 Anexo</label>
+                        <input type="file" id="upload-anexo" style="display: none;">
+                        <span class="icones-anexo">📄 PDF | 🖼️ PNG | 📝 DOC</span>
+                    </div>
+                    <div class="grupo-input input-data">
+                        <label>Data:</label>
+                        <input type="date">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botões Finais -->
+        <div class="area-acoes-finais">
+            <button class="btn-verde">Salvar serviço</button>
+            <button class="btn-vermelho">Delete</button>
+        </div>
+
+    </main>
+
+</body>
+</html>
