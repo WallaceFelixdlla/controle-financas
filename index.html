@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Clientes e Finanças</title>
+    <!-- Ligando o arquivo de estilo (CSS) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+        <!-- Cabeçalho -->
+        <header class="cabecalho">
+            <h1>Controle de clientes e finanças</h1>
+            <span id="data-atual">Data 03/07/2026</span>
+        </header>
+
+        <!-- Seção dos Resumos Financeiros e Clientes -->
+        <section class="painel-resumo">
+            
+            <!-- Card Total de Clientes -->
+            <div class="card card-clientes">
+                <h2>Total clientes</h2>
+                <p id="total-clientes" class="valor-azul">182</p>
+                <button class="btn-adicionar">Adicionar Cliente</button>
+            </div>
+
+            <!-- Card Financeiro do Mês -->
+            <div class="card card-financeiro">
+                <h2>Julho 2026</h2>
+                <div class="valores-mes">
+                    <div class="bloco-valor">
+                        <h3>Mês bruto</h3>
+                        <p id="mes-bruto" class="valor-verde">R$ 7.540,00</p>
+                    </div>
+                    <div class="bloco-valor">
+                        <h3>Mês líquido</h3>
+                        <p id="mes-liquido" class="valor-verde">R$ 3.080,00</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Ligando o arquivo de lógica (JavaScript) -->
+    <script src="script.js"></script>
+</body>
+</html>
