@@ -1,0 +1,150 @@
+/* Importando a fonte moderna do Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Zerando os espaçamentos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Fundo claro e layout centralizado */
+body {
+    background-color: #F4F7FE; /* Fundo cinza bem moderno e limpo */
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #2B3674;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+}
+
+/* Cabeçalho com Degradê (Gradient) */
+.cabecalho {
+    background: linear-gradient(135deg, #4318FF 0%, #868CFF 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0px 10px 20px rgba(67, 24, 255, 0.15);
+}
+
+.cabecalho h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.cabecalho span {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+}
+
+/* Organização dos cards */
+.painel-resumo {
+    display: flex;
+    gap: 25px;
+}
+
+/* Base dos cards flutuantes */
+.card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Clientes */
+.card-clientes {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-clientes h2 {
+    font-size: 16px;
+    color: #A3AED0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.valor-azul {
+    color: #4318FF;
+    font-size: 48px;
+    font-weight: 700;
+    margin: 15px 0;
+}
+
+/* Botão Moderno */
+.btn-adicionar {
+    background-color: #4318FF;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.2s;
+}
+
+.btn-adicionar:hover {
+    background-color: #2b0bba;
+}
+
+/* Card Financeiro */
+.card-financeiro {
+    flex: 2;
+}
+
+.card-financeiro h2 {
+    font-size: 22px;
+    margin-bottom: 25px;
+    color: #2B3674;
+    border-bottom: 2px solid #F4F7FE;
+    padding-bottom: 10px;
+}
+
+.valores-mes {
+    display: flex;
+    gap: 20px;
+}
+
+.bloco-valor {
+    background-color: #F4F7FE;
+    padding: 20px;
+    border-radius: 16px;
+    flex: 1;
+}
+
+.bloco-valor h3 {
+    font-size: 15px;
+    color: #A3AED0;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.valor-verde {
+    color: #05CD99;
+    font-size: 28px;
+    font-weight: 700;
+}
