@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Controle Financeiro</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilo exclusivo para a tela de login */
+        .login-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4318FF 0%, #868CFF 100%);
+        }
+        .card-login {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0px 20px 30px rgba(0,0,0,0.2);
+        }
+        .card-login h2 { color: #2B3674; margin-bottom: 20px; }
+        .input-login {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #E0E5F2;
+            border-radius: 12px;
+            outline: none;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background-color: #4318FF;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="login-body">
+
+    <div class="card-login">
+        <h2>Acesse seu Controle</h2>
+        <input type="email" class="input-login" placeholder="E-mail">
+        <input type="password" class="input-login" placeholder="Senha">
+        <button class="btn-login" onclick="window.location.href='index.html'">Entrar</button>
+    </div>
+
+</body>
+</html>
