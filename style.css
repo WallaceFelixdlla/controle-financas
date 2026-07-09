@@ -82,7 +82,7 @@ body {
 .card-clientes h2 {
     font-size: 16px;
     color: #A3AED0;
-    text-transform: uppercase;
+    text-transform: none;
     letter-spacing: 1px;
 }
 
@@ -150,111 +150,176 @@ body {
 }
 
 /* --- NOVOS ESTILOS: PAINEL INFERIOR --- */
-.painel-inferior {
-    display: flex;
-    gap: 25px;
-    margin-top: 25px;
+/* ---------------- PAINEL INFERIOR ---------------- */
+
+.painel-inferior{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    margin-top:25px;
 }
 
-.coluna-clientes {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+/* ---------------- HISTÓRICO ---------------- */
+
+.card-historico{
+    width:100%;
 }
 
-/* Filtro */
-.card-filtro h2 {
-    font-size: 16px;
-    color: #2B3674;
-    margin-bottom: 15px;
+.card-historico h2{
+    font-size:18px;
+    color:#2B3674;
+    margin-bottom:20px;
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:1px;
 }
 
-.card-filtro input {
-    width: 100%;
-    padding: 15px;
-    border: 2px solid #E0E5F2;
-    border-radius: 12px;
-    font-size: 14px;
-    color: #2B3674;
-    outline: none;
-    transition: 0.3s;
+.lista-historico{
+    list-style:none;
 }
 
-.card-filtro input:focus {
-    border-color: #4318FF;
+.lista-historico li{
+    background:#F4F7FE;
+    padding:15px 20px;
+    border-radius:12px;
+    margin-bottom:10px;
+    font-size:14px;
+    color:#A3AED0;
+    line-height:1.6;
 }
 
-/* Lista de Clientes (Avatares) */
-.lista-clientes {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    padding-bottom: 10px;
+.lista-historico li strong{
+    color:#2B3674;
+    font-size:15px;
 }
 
-.avatar {
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s;
+/* ---------------- FILTRO ---------------- */
+
+.card-filtro{
+    width:100%;
 }
 
-.avatar:hover {
-    transform: scale(1.1);
+.card-filtro h2{
+    font-size:16px;
+    color:#2B3674;
+    margin-bottom:15px;
 }
 
-.avatar img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid white;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-    margin-bottom: 5px;
+.card-filtro input{
+    width:100%;
+    padding:15px;
+    border:2px solid #E0E5F2;
+    border-radius:12px;
+    font-size:14px;
+    outline:none;
+    transition:.3s;
 }
 
-.avatar p {
-    font-size: 12px;
-    font-weight: 600;
-    color: #2B3674;
+.card-filtro input:focus{
+    border-color:#4318FF;
 }
 
-/* Histórico */
-.card-historico {
-    flex: 2;
+/* ---------------- CLIENTES ---------------- */
+
+.lista-clientes{
+
+    display:grid;
+
+    grid-template-columns:repeat(6,1fr);
+
+    gap:25px;
+
+    justify-items:center;
+
+    align-items:start;
+
 }
 
-.card-historico h2 {
-    font-size: 18px;
-    color: #2B3674;
-    margin-bottom: 20px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+/* Avatar */
+
+.avatar{
+
+    width:110px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.25s;
+
 }
 
-.lista-historico {
-    list-style: none;
+.avatar:hover{
+
+    transform:translateY(-5px);
+
 }
 
-.lista-historico li {
-    background-color: #F4F7FE;
-    padding: 15px 20px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #A3AED0;
-    line-height: 1.6;
+.avatar img{
+
+    width:75px;
+
+    height:75px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:4px solid white;
+
+    box-shadow:0 6px 15px rgba(0,0,0,.15);
+
 }
 
-.lista-historico li strong {
-    color: #2B3674;
-    font-size: 15px;
+.avatar p{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:#2B3674;
+
+    word-break:break-word;
+
 }
 
-.txt-verde {
-    color: #05CD99;
-    font-weight: 700;
+/* ---------------- RESPONSIVO ---------------- */
+
+@media(max-width:1100px){
+
+    .lista-clientes{
+
+        grid-template-columns:repeat(4,1fr);
+
+    }
+
+}
+
+@media(max-width:700px){
+
+    .lista-clientes{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+
+@media(max-width:500px){
+
+    .lista-clientes{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+.txt-verde{
+    color:#05CD99;
+    font-weight:700;
 }
 
 /* --- ESTILOS DA TELA DE CLIENTE E FORMULÁRIOS --- */
@@ -285,21 +350,23 @@ body {
 }
 
 /* Título em destaque no topo do card (igual ao seu desenho) */
+/* O cabeçalho deve ser um bloco normal */
 .cabecalho-secao {
-    background-color: #4318FF;
+    background-color: #4f46e5; /* Cor roxa */
     color: white;
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 5px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(67, 24, 255, 0.3);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 10px; /* Espaço para o formulário abaixo */
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
 }
 
+/* Garante que o H2 não tenha margens que gerem espaços extras */
 .cabecalho-secao h2 {
-    font-size: 16px;
-    font-weight: 600;
+    margin: 0;
+    font-size: 1.1em;
+    color: white;
 }
 
 /* Layout Cliente (Foto + Formulário) */
@@ -439,3 +506,94 @@ body {
     transition: 0.3s;
 }
 .item-servico:hover { background: #e0f7fa; }
+
+/* Label um pouco mais destacado */
+.form-dados label {
+    font-weight: 600;
+    color: #475569;
+    font-size: 0.9em;
+}
+
+/* Compacta o formulário de dados do cliente */
+.form-dados {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Coloca dois campos por linha */
+    gap: 8px 15px; /* Espaço entre os campos (menor na vertical) */
+}
+
+/* Remove margens extras dos grupos de input */
+.grupo-input {
+    margin-bottom: 5px; 
+}
+
+/* Reduz o tamanho da fonte e o padding dos inputs */
+.form-dados input {
+    text-transform: NONE;
+    font-weight: bold;
+    font-size: 0.9em; /* Fonte um pouco menor para economizar altura */
+    padding: 6px 10px; /* Padding menor */
+    height: 35px; /* Altura fixa menor */
+}
+
+/* Ajuste específico para a seção ficar mais compacta */
+.card-formulario {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Ajusta o título para ocupar menos espaço */
+.cabecalho-secao h2 {
+    font-size: 1.1em;
+    margin: 0;
+    padding: 5px 0;
+}
+
+/* 1. O container principal do histórico */
+.historico-container {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    /* Garante que nada vaze e mantém a estrutura */
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* 2. O cabeçalho clicável (o botão) */
+.cabecalho-historico {
+    background-color: #4f46e5; /* Cor de fundo do botão */
+    color: white;
+    padding: 12px 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between; /* Alinha o título e a seta */
+    align-items: center;
+    font-weight: bold;
+    user-select: none; /* Impede que o usuário selecione o texto do botão ao clicar */
+    
+    /* Importante: Garante uma altura mínima para não sumir */
+    min-height: 45px; 
+    /* Garante que ele não encolha */
+    flex-shrink: 0; 
+}
+
+/* O título dentro do cabeçalho */
+.cabecalho-historico h2 {
+    margin: 0;
+    font-size: 1.1em;
+    color: white; /* Cor do texto branca */
+}
+
+/* 3. A área da lista que esconde */
+#lista-historico {
+    padding: 15px;
+    background-color: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    display: none; 
+    
+    /* OPÇÃO 1: Aumentar para mostrar mais (ex: 800px) */
+    max-height: 800px; 
+    max-height: none;
+    overflow-y: auto; /* Mantém a barra de rolagem se a lista passar de 800px */
+}
