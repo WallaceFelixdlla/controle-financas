@@ -597,3 +597,122 @@ body {
     max-height: none;
     overflow-y: auto; /* Mantém a barra de rolagem se a lista passar de 800px */
 }
+
+/* ==========================================================
+   RESPONSIVIDADE - TABLET E CELULAR
+========================================================== */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    /* ================= HEADER ================= */
+
+    .cabecalho {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 25px;
+    }
+
+    .cabecalho h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .cabecalho span {
+        align-self: flex-start;
+    }
+
+    /* ================= DASHBOARD ================= */
+
+    .painel-resumo {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .card-clientes,
+    .card-financeiro {
+        width: 100%;
+    }
+
+    .valores-mes {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .bloco-valor {
+        width: 100%;
+    }
+
+    /* ================= HISTÓRICO ================= */
+
+    .card-historico {
+        width: 100%;
+    }
+
+    /* ================= CLIENTES ================= */
+
+    .lista-clientes {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .avatar img,
+    .avatar-card img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        aspect-ratio: 1 / 1;
+    }
+
+    /* ================= CLIENTE.HTML ================= */
+
+    .layout-cliente {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .foto-perfil {
+        margin-bottom: 20px;
+    }
+
+    .form-dados {
+        grid-template-columns: 1fr;
+    }
+
+    .linha-valores,
+    .linha-rodape-servico {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .linha-valores .grupo-input,
+    .linha-rodape-servico .grupo-input {
+        width: 100%;
+    }
+
+    .area-anexos {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .area-acoes-finais {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn-verde,
+    .btn-vermelho,
+    .btn-verde-destaque {
+        width: 100%;
+    }
+
+}
