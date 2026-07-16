@@ -1,18 +1,5 @@
  let linkAnexoSalvo = null; // Variável global para armazenar o link
-
-// Configurações
-
-const SUPABASE_URL = 'https://tachagqgxjowcpsxotyw.supabase.co';
-
-const SUPABASE_KEY = 'sb_publishable_19fNju9v4AgImJFV4Oucmg_ByleSoVY';
-
-
-if (!window.supabaseClient) {
-
-    window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-}
-
+ let fotoTemporaria = null;
 
 // --- Inicialização única ---
 
@@ -32,33 +19,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Busca os dados (cidade, bairro, whatsapp) do banco
 
-        const { data } = await window.supabaseClient
-
+        const { data, error } = await window.supabaseClient
             .from('clientes')
-
             .select('cidade, bairro, whatsapp, foto')
+            .ilike('nome', nomeUrl);
 
-            .ilike('nome', nomeUrl)
+        if (!error && data.length > 0) {
 
-            .limit(1)
+            // Pega o primeiro registro
+            const cliente = { ...data[0] };
 
-            .single();
+            // Se existir algum registro com foto, usa ele
+            const registroComFoto = data.find(item => item.foto);
 
-
-        if (data) {
-
-            // .toUpperCase() garante que o texto fique em CAIXA ALTA
-
-            document.getElementById('cidade').value = data.cidade || '';
-
-            document.getElementById('bairro').value = data.bairro || '';
-
-            document.getElementById('whatsapp').value = data.whatsapp || '';
-
-            if (data.foto) {
-            document.getElementById('foto-cliente').src = data.foto;
+            if (registroComFoto) {
+                cliente.foto = registroComFoto.foto;
             }
 
+            document.getElementById('cidade').value = cliente.cidade || '';
+            document.getElementById('bairro').value = cliente.bairro || '';
+            document.getElementById('whatsapp').value = cliente.whatsapp || '';
+
+            if (cliente.foto) {
+                document.getElementById('foto-cliente').src = cliente.foto;
+            }
         }
 
     }
@@ -233,6 +217,28 @@ async function carregarHistorico() {
 }
 
 
+function toggleServico() {
+
+    const conteudo = document.getElementById('conteudo-servico');
+
+    const titulo = conteudo.previousElementSibling.querySelector('h2');
+
+    if (conteudo.style.display === "none" || conteudo.style.display === "") {
+
+        conteudo.style.display = "block";
+
+        titulo.innerText = "Serviço ▴";
+
+    } else {
+
+        conteudo.style.display = "none";
+
+        titulo.innerText = "Serviço ▾";
+
+    }
+
+}
+
 
 function toggleHistorico() {
 
@@ -260,75 +266,6 @@ function toggleHistorico() {
 
 }
 
-async function carregarDashboard() {
-    // 1. Busca todos os registros
-    const { data, error } = await window.supabaseClient
-        .from('clientes')
-        .select('nome, valor_bruto, valor_liquido, data');
-
-    if (error) {
-        console.error("Erro ao carregar dados:", error);
-        return;
-    }
-
-    // 2. Calcula Total de Clientes Únicos
-    const clientesUnicos = new Set(data.map(item => item.nome));
-    document.getElementById('total-clientes').innerText = clientesUnicos.size;
-
-    // 3. Calcula valores do mês atual (Julho 2026)
-    const mesAtual = "2026-07";
-    const dadosMesAtual = data.filter(item => item.data && item.data.startsWith(mesAtual));
-    
-    const totalBruto = dadosMesAtual.reduce((acc, curr) => acc + (parseFloat(curr.valor_bruto) || 0), 0);
-    const totalLiquido = dadosMesAtual.reduce((acc, curr) => acc + (parseFloat(curr.valor_liquido) || 0), 0);
-
-    // 4. Atualiza o HTML
-    document.getElementById('mes-bruto').innerText = `R$ ${totalBruto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    document.getElementById('mes-liquido').innerText = `R$ ${totalLiquido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-}
-
-// Executa a função quando a página carregar
-document.addEventListener('DOMContentLoaded', carregarDashboard);
-
-//------------------------------------------------------------
-async function carregarListaClientes() {
-    // 1. Busca nomes únicos dos clientes
-    const { data, error } = await window.supabaseClient
-        .from('clientes')
-        .select('nome, foto');
-
-    if (error) {
-        console.error("Erro ao buscar clientes:", error);
-        return;
-    }
-
-    // 2. Remove duplicatas (um cliente pode ter vários serviços)
-    const nomesUnicos = [...new Set(data.map(item => item.nome))];
-    const container = document.getElementById('container-clientes'); // Certifique-se de ter essa div no HTML
-
-    if (!container) return;
-
-    // 3. Gera o HTML de cada avatar
-    container.innerHTML = nomesUnicos.map(nome => {
-        const cliente = data.find(item => item.nome === nome);
-        const foto = cliente?.foto || `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=random`;
-        return `
-            <div class="avatar-card" onclick="window.location.href='cliente.html?nome=${encodeURIComponent(nome)}'">
-                <img src="${foto}" alt="${nome}">
-                <p>${nome}</p>
-            </div>
-        `;
-    }).join('');
-}
-
-// Chame a função dentro do seu carregamento inicial
-document.addEventListener('DOMContentLoaded', () => {
-    carregarDashboard(); // A que fizemos antes
-    carregarListaClientes(); // A nova para listar os avatares
-});
-//---------------------------------------------------------------------------
-// =====================================================
-// FOTO DO CLIENTE
 // =====================================================
 
 async function uploadFotoCliente(event) {
@@ -346,21 +283,25 @@ async function uploadFotoCliente(event) {
 
     const extensao = file.name.split('.').pop();
 
-    const nomeArquivo = `${Date.now()}_${nomeCliente
-    .trim()
-    .replace(/\s+/g, "_")
-    .replace(/[^\wÀ-ÿ-]/g, "")}.${extensao}`;
+    const nomeLimpo = nomeCliente
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "") // remove acentos
+        .trim()
+        .replace(/\s+/g, "_")
+        .replace(/[^\w-]/g, "");
 
-    const caminho = `clientes/${nomeArquivo}`;
+    const nomeArquivo = `${Date.now()}_${nomeLimpo}.${extensao}`;
 
-    // Procura a foto antiga do cliente
-const { data: fotoAntiga } = await window.supabaseClient
-    .from('clientes')
-    .select('foto')
-    .eq('nome', nomeCliente)
-    .not('foto', 'is', null)
-    .limit(1)
-    .single();
+        const caminho = `clientes/${nomeArquivo}`;
+
+        // Procura a foto antiga do cliente
+    const { data: fotosAntigas } = await window.supabaseClient
+        .from('clientes')
+        .select('foto')
+        .eq('nome', nomeCliente)
+        .not('foto', 'is', null);
+
+    const fotoAntiga = fotosAntigas?.[0];
 
 
 // Se existir uma foto antiga, remove do Storage
@@ -392,8 +333,9 @@ if (fotoAntiga?.foto) {
         });
 
     if (error) {
-        alert("Erro ao enviar foto:\n" + error.message);
-        return;
+    console.log(error);
+    alert(error.message);
+    return;
     }
 
     // Obtém a URL pública
@@ -403,14 +345,11 @@ if (fotoAntiga?.foto) {
 
     // Atualiza a imagem na tela
     document.getElementById('foto-cliente').src = data.publicUrl;
+    fotoTemporaria = data.publicUrl;
 
     // Salva a URL da foto em todos os registros desse cliente
     const { error: erroBanco } = await window.supabaseClient
         .from('clientes')
-        .update({
-            foto: data.publicUrl
-        })
-        .eq('nome', nomeCliente);
 
     if (erroBanco) {
         alert("Erro ao salvar a foto no banco.");
@@ -433,6 +372,16 @@ if (formCliente) {
 
         e.preventDefault();
 
+        const {
+            data: { user },
+            error: erroUsuario
+        } = await window.supabaseClient.auth.getUser();
+
+        if (erroUsuario || !user) {
+            alert("Você precisa estar logado para salvar um serviço.");
+            window.location.href = "login.html";
+            return;
+        }
 
         const dados = {
 
@@ -454,7 +403,11 @@ if (formCliente) {
 
             valor_liquido: converterParaNumero(document.getElementById('valor_liquido').value),
 
-            data: document.getElementById('data_servico').value
+            data: document.getElementById('data_servico').value,
+
+            user_id: user.id,
+
+            foto: fotoTemporaria
 
         };
 
@@ -493,6 +446,8 @@ if (formCliente) {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    atualizarData();
+
     carregarDados();
 
     carregarHistorico();
@@ -513,40 +468,7 @@ if (campoNome) {
 // Variável global para armazenar os clientes buscados
 let todosClientes = [];
 //--------------------------------------------------------------------------
-async function carregarListaClientes() {
-    const { data, error } = await window.supabaseClient
-        .from('clientes')
-        .select('nome, foto');
 
-    if (error) return;
-
-    // Pega apenas nomes únicos
-    // Pega apenas um registro de cada cliente (mantendo a foto)
-    todosClientes = data.filter(
-        (cliente, index, array) =>
-            index === array.findIndex(c => c.nome === cliente.nome)
-);
-
-renderizarClientes(todosClientes);
-}
-
-function renderizarClientes(lista) {
-
-    const container = document.getElementById('lista-clientes');
-
-    container.innerHTML = lista.map(cliente => {
-
-        const foto = cliente.foto ||
-            `https://ui-avatars.com/api/?name=${encodeURIComponent(cliente.nome)}&background=random`;
-
-        return `
-            <div class="avatar" onclick="window.location.href='cliente.html?nome=${encodeURIComponent(cliente.nome)}'">
-                <img src="${foto}" alt="${cliente.nome}">
-                <p>${cliente.nome}</p>
-            </div>
-        `;
-    }).join('');
-}
 
 function filtrarClientes() {
 
@@ -561,10 +483,18 @@ function filtrarClientes() {
 
 // Chame no carregamento
 document.addEventListener('DOMContentLoaded', () => {
-    carregarDashboard();         // Totais do mês atual
-    carregarListaClientes();     // Avatares
-    carregarHistoricoMensal();   // Histórico mensal
+    if (document.querySelector('.lista-clientes')) {
+        carregarListaClientes();
+    }
 
+    if (document.querySelector('.lista-historico')) {
+        carregarHistoricoMensal();
+    }
+
+    // Página do cliente
+    if (document.getElementById('nome')) {
+        carregarHistorico();
+    }
     // Foto do cliente
 const foto = document.getElementById("foto-cliente");
 const upload = document.getElementById("upload-foto");
@@ -599,61 +529,6 @@ if (btnAtualizar) {
 
 });
 //-------------------------------------------------------------------------
-
-// --- CÓDIGO DO HISTÓRICO MENSAL ---
-
-async function carregarHistoricoMensal() {
-    console.log("Conectando ao Supabase para o histórico...");
-
-    const { data, error } = await window.supabaseClient
-        .from('clientes')
-        .select('valor_bruto, valor_liquido, data');
-
-    if (error) {
-        console.error("ERRO DO SUPABASE:", error.message);
-        alert("Erro ao buscar dados: " + error.message);
-        return;
-    }
-
-    if (!data || data.length === 0) {
-        console.log("Nenhum dado encontrado na tabela 'clientes'.");
-        return;
-    }
-
-    console.log("Dados recebidos com sucesso:", data);
-
-    const agrupado = data.reduce((acc, item) => {
-        if (!item.data) return acc;
-        const mes = item.data.substring(0, 7); // Ex: "2026-07"
-        if (!acc[mes]) acc[mes] = { bruto: 0, liquido: 0 };
-        acc[mes].bruto += (parseFloat(item.valor_bruto) || 0);
-        acc[mes].liquido += (parseFloat(item.valor_liquido) || 0);
-        return acc;
-    }, {});
-
-    const lista = document.querySelector('.lista-historico');
-    if (!lista) {
-        console.error("Elemento .lista-historico não encontrado no seu HTML!");
-        return;
-    }
-
-    const nomesMeses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-
-    lista.innerHTML = '';
-
-    Object.keys(agrupado).sort().reverse().forEach(mes => {
-        const numMes = parseInt(mes.split('-')[1]);
-        const nomeMes = nomesMeses[numMes - 1].toUpperCase();
-        
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <strong>${nomeMes}</strong> <br> 
-            Bruto: R$ ${agrupado[mes].bruto.toLocaleString('pt-BR', {minimumFractionDigits: 2})} | 
-            Líquido: <span class="txt-verde">R$ ${agrupado[mes].liquido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-        `;
-        lista.appendChild(li);
-    });
-}
 
 async function atualizarCadastroCliente() {
 
@@ -716,3 +591,116 @@ function converterParaNumero(valor) {
     ) || 0;
 
 }
+
+const btnLogout = document.getElementById("btn-logout");
+
+if (btnLogout) {
+    btnLogout.addEventListener("click", async () => {
+
+        await window.supabaseClient.auth.signOut();
+
+        window.location.href = "login.html";
+
+    });
+}
+
+//-------EXLUIR CLIENTE-----------------------------
+
+async function excluirCliente() {
+
+    console.log("DELETE CLICADO");
+
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const nomeCliente = urlParams.get('nome');
+
+    console.log("Cliente:", nomeCliente);
+
+
+    const { data: { user }, error: erroUsuario } =
+        await window.supabaseClient.auth.getUser();
+
+
+    console.log("Usuário:", user);
+
+
+    if (!user) {
+        alert("Usuário não encontrado");
+        return;
+    }
+
+//-------------------------------------------
+
+// Busca uma foto do cliente
+    const { data: fotos } = await window.supabaseClient
+        .from('clientes')
+        .select('foto')
+        .eq('nome', nomeCliente)
+        .eq('user_id', user.id)
+        .not('foto', 'is', null)
+        .limit(1);
+
+    if (fotos && fotos.length > 0) {
+
+        const fotoUrl = fotos[0].foto;
+
+        try {
+
+            const url = new URL(fotoUrl);
+
+            const caminhoArquivo = decodeURIComponent(
+                url.pathname.split('/public/fotos-clientes/')[1]
+            );
+
+            const { error: erroStorage } =
+                await window.supabaseClient.storage
+                    .from('fotos-clientes')
+                    .remove([caminhoArquivo]);
+//---------------------------------------------
+            console.log("Caminho que será apagado:", caminhoArquivo);
+            console.log("Retorno Storage:", erroStorage);
+
+         /*   if (erroStorage) {
+                console.error("Erro ao excluir foto:", erroStorage);
+            }
+*///---------------------------------------------
+        } catch (erro) {
+            console.error("Erro ao interpretar URL da foto:", erro);
+        }
+
+    }
+//--------------------------------------
+    const { data, error } = await window.supabaseClient
+        .from('clientes')
+        .delete()
+        .eq('nome', nomeCliente)
+        .eq('user_id', user.id)
+        .select();
+
+
+    console.log("Resultado delete:", data);
+    console.log("Erro delete:", error);
+
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+
+    alert("Cliente excluído!");
+
+    window.location.href = "index.html";
+}
+
+//LIGAR O BOTÃO DE EXCLUIR CLIENTE---------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const btnExcluir = document.getElementById('btnExcluirCliente');
+
+    if (btnExcluir) {
+        btnExcluir.addEventListener('click', excluirCliente);
+    }
+
+});

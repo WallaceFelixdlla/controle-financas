@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ficha do Cliente - Controle</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <main class="container">
         <header class="cabecalho cabecalho-cliente">
-            <a href="index.html" class="btn-voltar">← Voltar</a>
-            <h1>Ficha do Cliente</h1>
+            <!-- <a href="index.html" class="btn-voltar">← Voltar</a> -->
+            <h1>Cadastro do Cliente e serviços</h1>
         </header>
 
         <!-- Formulário unificado -->
@@ -47,78 +47,107 @@
                         <div class="grupo-input"><label>WhatsApp:</label><input type="tel" id="whatsapp" placeholder="(00) 00000-0000"></div>
                     </div>
                 </div>
-            </section>
-
-            <!-- AQUI VOCÊ ADICIONA O BOTÃO NOVO SERVIÇO -->
-            <div class="area-acoes-centro" style="text-align: center; margin: 20px 0;">
-                <button
+                
+                <!-- AQUI VOCÊ ADICIONA O BOTÃO NOVO SERVIÇO -->
+                <div class="area-acoes-centro" style="text-align: center; margin: 20px 0;">
+                    <button
                     id="btn-atualizar-cliente"
                     type="button"
                     class="btn-verde-destaque">
                     💾 Atualizar Cadastro
                 </button>
-            </div>
+                </div>
+            </section>
 
             <!-- Bloco 2: Serviço Prestado -->
-            <section class="card card-formulario">
-                <div class="cabecalho-secao"><h2>Serviço</h2></div>
-                <div class="form-servico">
-                    <div class="grupo-input"><label>Serviço:</label><input type="text" id="servico" placeholder="Descrição do que foi feito"></div>
-                    <div class="grupo-input"><label>Equipamento eletrônico:</label><input type="text" id="equipamento" placeholder="Ex: Computador, Celular..."></div>
-                    <div class="grupo-input"><label>Material:</label><input type="text" id="material" placeholder="Peças ou materiais utilizados"></div>
-                    
-                    <div class="linha-valores">
+<!-- Bloco 2: Serviço Prestado -->
+<section class="card card-formulario">
 
-                        <div class="grupo-input">
-                            <label for="valor_bruto">Valor Bruto (R$):</label>
-                            <input type="text" id="valor_bruto" placeholder="0,00">
-                        </div>
+    <!-- Cabeçalho clicável -->
+    <div class="cabecalho-secao" onclick="toggleServico()">
+        <h2 id="titulo-servico">Serviço ▾</h2>
+    </div>
 
-                        <div class="grupo-input">
-                            <label for="valor_liquido">Valor Líquido (R$):</label>
-                            <input type="text" id="valor_liquido" placeholder="0,00">
-                        </div>
+    <!-- Conteúdo que será escondido -->
+    <div id="conteudo-servico">
 
-                    </div>
+        <div class="form-servico">
 
-                    <div class="linha-rodape-servico">
-                        <div class="area-anexos">
-                            <!-- O label "for" faz o clique no botão ativar o input escondido -->
-                            <label class="btn-laranja" for="upload-anexo">📎 Anexo</label>
-                            <input type="file" id="upload-anexo" style="display: none;" onchange="uploadArquivo(event)">
-                            <span id="nome-arquivo" class="icones-anexo">Nenhum arquivo</span>
-                        </div>
-                        <div class="grupo-input input-data">
-                            <label>Data:</label>
-                            <input type="date" id="data_servico">
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <div class="grupo-input">
+                <label>Serviço:</label>
+                <input type="text" id="servico" placeholder="Descrição do que foi feito">
+            </div>
 
-            <section class="historico-container card">
-                
-                <!-- Cabeçalho Clicável (O "Botão") -->
-                <div class="cabecalho-historico" onclick="toggleHistorico()">
-                    <h2 id="titulo-historico">Histórico de Serviços ▾</h2>
+            <div class="grupo-input">
+                <label>Equipamento eletrônico:</label>
+                <input type="text" id="equipamento" placeholder="Ex: Computador, Celular...">
+            </div>
+
+            <div class="grupo-input">
+                <label>Material:</label>
+                <input type="text" id="material" placeholder="Peças ou materiais utilizados">
+            </div>
+
+            <div class="linha-valores">
+
+                <div class="grupo-input">
+                    <label for="valor_bruto">Valor Bruto (R$):</label>
+                    <input type="text" id="valor_bruto" placeholder="0,00">
                 </div>
 
-                <!-- A Div que contém a lista e será escondida -->
-                <div id="lista-historico">
-                    <!-- A lista será montada aqui pelo JavaScript -->
+                <div class="grupo-input">
+                    <label for="valor_liquido">Valor Líquido (R$):</label>
+                    <input type="text" id="valor_liquido" placeholder="0,00">
                 </div>
 
-            </section>
+            </div>
+
+            <div class="linha-rodape-servico">
+                <div class="grupo-input input-data">
+                    <label>Data:</label>
+                    <input type="date" id="data_servico">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Bloco 3: Histórico -->
+<section class="card">
+
+    <div class="cabecalho-secao" onclick="toggleHistorico()">
+        <h2 id="titulo-historico">Histórico de Serviços ▾</h2>
+    </div>
+
+    <div id="lista-historico"></div>
+
+</section>
 
             <!-- Botões Finais -->
             <div class="area-acoes-finais">
                 <button type="submit" class="btn-verde">Salvar serviço</button>
-                <button type="button" class="btn-vermelho">Delete</button>
+                <button type="button" class="btn-vermelho" id="btnExcluirCliente">Excluir Cliente</button>
             </div>
         </form>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+
+        const { data } = await window.supabaseClient.auth.getSession();
+
+        if (!data.session) {
+            window.location.href = "login.html";
+        }
+
+    });
+    </script>
+    
 </body>
 </html>

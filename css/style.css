@@ -26,7 +26,7 @@ body {
 /* Cabeçalho com Degradê (Gradient) */
 .cabecalho {
     background: linear-gradient(135deg, #4318FF 0%, #868CFF 100%);
-    color: white;
+    color: rgb(255, 255, 255);
     border-radius: 20px;
     padding: 30px;
     display: flex;
@@ -42,12 +42,35 @@ body {
 }
 
 .cabecalho span {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(72, 154, 165, 0.2);
     padding: 8px 16px;
     border-radius: 30px;
     font-size: 14px;
     font-weight: 600;
     backdrop-filter: blur(5px);
+}
+
+/*Botão de sair*/
+#btn-logout {
+    background: #ffffff;
+    color: #1c0fd4;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#btn-logout:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
+}
+
+#btn-logout:active {
+    transform: translateY(0);
 }
 
 /* Organização dos cards */
@@ -360,13 +383,14 @@ body {
     display: flex;
     align-items: center;
     font-size: 0.9em;
+    cursor: pointer;
 }
 
 /* Garante que o H2 não tenha margens que gerem espaços extras */
 .cabecalho-secao h2 {
     margin: 0;
-    font-size: 1.1em;
-    color: white;
+    width: 100%;
+    font-size: 1.2rem;
 }
 
 /* Layout Cliente (Foto + Formulário) */
@@ -408,6 +432,10 @@ body {
     flex-direction: column;
     gap: 15px;
     width: 100%;
+}
+
+#conteudo-servico {
+    display: none;
 }
 
 .grupo-input {
@@ -505,7 +533,7 @@ body {
     border-radius: 5px;
     transition: 0.3s;
 }
-.item-servico:hover { background: #e0f7fa; }
+.item-servico:hover { background: #0c9fb3; }
 
 /* Label um pouco mais destacado */
 .form-dados label {
@@ -542,40 +570,12 @@ body {
 }
 
 /* Ajusta o título para ocupar menos espaço */
-.cabecalho-secao h2 {
-    font-size: 1.1em;
-    margin: 0;
-    padding: 5px 0;
+#lista-historico {
+    display: none;
 }
 
-/* 1. O container principal do histórico */
-.historico-container {
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    background-color: #ffffff;
-    margin-bottom: 15px;
-    /* Garante que nada vaze e mantém a estrutura */
-    overflow: hidden; 
-    display: flex;
-    flex-direction: column;
-}
-
-/* 2. O cabeçalho clicável (o botão) */
-.cabecalho-historico {
-    background-color: #4f46e5; /* Cor de fundo do botão */
-    color: white;
-    padding: 12px 15px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between; /* Alinha o título e a seta */
-    align-items: center;
-    font-weight: bold;
-    user-select: none; /* Impede que o usuário selecione o texto do botão ao clicar */
-    
-    /* Importante: Garante uma altura mínima para não sumir */
-    min-height: 45px; 
-    /* Garante que ele não encolha */
-    flex-shrink: 0; 
+.card:has(#lista-historico){
+    padding-bottom: 5px;
 }
 
 /* O título dentro do cabeçalho */
@@ -583,19 +583,6 @@ body {
     margin: 0;
     font-size: 1.1em;
     color: white; /* Cor do texto branca */
-}
-
-/* 3. A área da lista que esconde */
-#lista-historico {
-    padding: 15px;
-    background-color: #f9fafb;
-    border-top: 1px solid #e5e7eb;
-    display: none; 
-    
-    /* OPÇÃO 1: Aumentar para mostrar mais (ex: 800px) */
-    max-height: 800px; 
-    max-height: none;
-    overflow-y: auto; /* Mantém a barra de rolagem se a lista passar de 800px */
 }
 
 /* ==========================================================

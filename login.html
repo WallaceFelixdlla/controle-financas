@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Controle Financeiro</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CSS/style.css">
     <style>
         /* Estilo exclusivo para a tela de login */
         .login-body {
@@ -45,14 +45,43 @@
         }
     </style>
 </head>
+
 <body class="login-body">
 
     <div class="card-login">
         <h2>Acesse seu Controle</h2>
-        <input type="email" class="input-login" placeholder="E-mail">
-        <input type="password" class="input-login" placeholder="Senha">
-        <button class="btn-login" onclick="window.location.href='index.html'">Entrar</button>
+
+        <input
+            type="email"
+            id="email"
+            class="input-login"
+            placeholder="E-mail"
+        >
+
+        <input
+            type="password"
+            id="senha"
+            class="input-login"
+            placeholder="Senha"
+        >
+
+        <button id="btn-login" class="btn-login">
+            Entrar
+        </button>
+
+        <button id="btn-cadastro" class="btn-login" style="background:#6C63FF; margin-top:10px;">
+            Criar conta
+        </button>
+
+        <p id="mensagem" style="margin-top:15px;"></p>
+
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
 
 </body>
 </html>

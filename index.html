@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Clientes e Finanças</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Ligando o arquivo de estilo (CSS) -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <main class="container">
         <!-- Cabeçalho -->
         <header class="cabecalho">
+            <button id="btn-logout">Sair</button>
             <h1>Controle de clientes e finanças</h1>
-            <span id="data-atual">Data 03/07/2026</span>
+            <span id="data-atual"></span>
         </header>
 
         <!-- Seção dos Resumos Financeiros e Clientes -->
@@ -71,7 +71,21 @@
         </section>
     </main>
 
-    <!-- Ligando o arquivo de lógica (JavaScript) -->
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+
+        const { data } = await window.supabaseClient.auth.getSession();
+
+        if (!data.session) {
+            window.location.href = "login.html";
+        }
+
+    });
+    </script>
+
 </body>
 </html>
