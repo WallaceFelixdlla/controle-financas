@@ -348,8 +348,13 @@ if (fotoAntiga?.foto) {
     fotoTemporaria = data.publicUrl;
 
     // Salva a URL da foto em todos os registros desse cliente
+    // Salva a URL da foto em todos os registros desse cliente
     const { error: erroBanco } = await window.supabaseClient
         .from('clientes')
+        .update({
+            foto: data.publicUrl
+        })
+        .eq('nome', nomeCliente);
 
     if (erroBanco) {
         alert("Erro ao salvar a foto no banco.");
@@ -603,6 +608,12 @@ if (btnLogout) {
 
     });
 }
+
+window.addEventListener("pageshow", (event) => {
+    carregarDashboard();
+    carregarListaClientes();
+    carregarHistoricoMensal();
+});
 
 //-------EXLUIR CLIENTE-----------------------------
 
