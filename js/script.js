@@ -412,6 +412,12 @@ if (formCliente) {
 
             data: document.getElementById('data_servico').value,
 
+            garantia: document.getElementById('tem_garantia').checked,
+
+            garantia_inicio: document.getElementById('inicio_garantia').value,
+
+            garantia_fim: document.getElementById('fim_garantia').value,
+
             user_id: user.id,
 
             foto: fotoTemporaria
@@ -644,6 +650,21 @@ async function excluirCliente() {
     }
 
 //-------------------------------------------
+// Função para verificar se a garantia está ativa
+
+    function garantiaAtiva(cliente) {
+
+        if (!cliente.garantia) {
+            return false;
+        }
+
+        const hoje = new Date();
+        const inicio = new Date(cliente.garantia_inicio);
+        const fim = new Date(cliente.garantia_fim);
+
+        return hoje >= inicio && hoje <= fim;
+    }
+
 
 // Busca uma foto do cliente
     const { data: fotos } = await window.supabaseClient
@@ -718,3 +739,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
+// Controle da garantia do serviço
+
+const checkboxGarantia = document.getElementById("tem_garantia");
+const dadosGarantia = document.getElementById("dados-garantia");
+
+
+if (checkboxGarantia) {
+
+    checkboxGarantia.addEventListener("change", function () {
+
+        if (this.checked) {
+
+            dadosGarantia.style.display = "block";
+
+        } else {
+
+            dadosGarantia.style.display = "none";
+
+            document.getElementById("inicio_garantia").value = "";
+            document.getElementById("fim_garantia").value = "";
+
+        }
+
+    });
+
+}

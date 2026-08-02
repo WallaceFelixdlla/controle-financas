@@ -703,3 +703,22 @@ body {
     }
 
 }
+/*BOLINHA VERDE DE GARANTIA*/
+.foto-container {
+    position: relative;
+    display: inline-block;
+}
+
+.bolinha-garantia {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+
+    width: 25px;
+    height: 25px;
+
+    background-color: green;
+    border-radius: 50%;
+
+    border: 2px solid white;
+}

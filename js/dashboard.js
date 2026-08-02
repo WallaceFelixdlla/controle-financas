@@ -46,7 +46,7 @@ async function carregarListaClientes() {
 
     const { data, error } = await window.supabaseClient
         .from('clientes')
-        .select('nome, foto')
+        .select('nome, foto, garantia')
 
     if (error) {
         console.error(error);
@@ -92,8 +92,15 @@ function renderizarClientes(lista) {
 
         return `
             <div class="avatar" onclick="window.location.href='cliente.html?nome=${encodeURIComponent(cliente.nome)}'">
-                <img src="${foto}" alt="${cliente.nome}">
+
+                <div class="foto-container">
+                    <img src="${foto}" alt="${cliente.nome}">
+
+                    ${cliente.garantia ? '<span class="bolinha-garantia"></span>' : ''}
+                </div>
+
                 <p>${cliente.nome}</p>
+
             </div>
         `;
     }).join('');

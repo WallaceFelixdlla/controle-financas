@@ -60,71 +60,106 @@
             </section>
 
             <!-- Bloco 2: Serviço Prestado -->
-<!-- Bloco 2: Serviço Prestado -->
-<section class="card card-formulario">
+            <!-- Bloco 2: Serviço Prestado -->
+            <section class="card card-formulario">
 
-    <!-- Cabeçalho clicável -->
-    <div class="cabecalho-secao" onclick="toggleServico()">
-        <h2 id="titulo-servico">Serviço ▾</h2>
-    </div>
-
-    <!-- Conteúdo que será escondido -->
-    <div id="conteudo-servico">
-
-        <div class="form-servico">
-
-            <div class="grupo-input">
-                <label>Serviço:</label>
-                <input type="text" id="servico" placeholder="Descrição do que foi feito">
-            </div>
-
-            <div class="grupo-input">
-                <label>Equipamento eletrônico:</label>
-                <input type="text" id="equipamento" placeholder="Ex: Computador, Celular...">
-            </div>
-
-            <div class="grupo-input">
-                <label>Material:</label>
-                <input type="text" id="material" placeholder="Peças ou materiais utilizados">
-            </div>
-
-            <div class="linha-valores">
-
-                <div class="grupo-input">
-                    <label for="valor_bruto">Valor Bruto (R$):</label>
-                    <input type="text" id="valor_bruto" placeholder="0,00">
+                <!-- Cabeçalho clicável -->
+                <div class="cabecalho-secao" onclick="toggleServico()">
+                    <h2 id="titulo-servico">Serviço ▾</h2>
                 </div>
 
-                <div class="grupo-input">
-                    <label for="valor_liquido">Valor Líquido (R$):</label>
-                    <input type="text" id="valor_liquido" placeholder="0,00">
+                <!-- Conteúdo que será escondido -->
+                <div id="conteudo-servico">
+
+                    <div class="form-servico">
+
+                        <div class="grupo-input">
+                            <label>Serviço:</label>
+                            <input type="text" id="servico" placeholder="Descrição do que foi feito">
+                        </div>
+
+                        <div class="grupo-input">
+                            <label>Equipamento eletrônico:</label>
+                            <input type="text" id="equipamento" placeholder="Ex: Computador, Celular...">
+                        </div>
+
+                        <div class="grupo-input">
+                            <label>Material:</label>
+                            <input type="text" id="material" placeholder="Peças ou materiais utilizados">
+                        </div>
+
+                        <div class="linha-valores">
+
+                            <div class="grupo-input">
+                                <label for="valor_bruto">Valor Bruto (R$):</label>
+                                <input type="text" id="valor_bruto" placeholder="0,00">
+                            </div>
+
+                            <div class="grupo-input">
+                                <label for="valor_liquido">Valor Líquido (R$):</label>
+                                <input type="text" id="valor_liquido" placeholder="0,00">
+                            </div>
+
+                        </div>
+
+                        <div class="linha-rodape-servico">
+                            <div class="grupo-input input-data">
+                                <label>Data:</label>
+                                <input type="date" id="data_servico">
+                            </div>
+                        </div>
+
+
+                        <!-- Garantia -->
+                        <div class="area-garantia">
+
+                            <div class="grupo-input">
+
+                                <label>
+                                    <input type="checkbox" id="tem_garantia">
+                                    Serviço possui garantia
+                                </label>
+
+                            </div>
+
+
+                            <div id="dados-garantia" style="display:none;">
+
+                                <div class="linha-valores">
+
+                                    <div class="grupo-input">
+                                        <label>Início da garantia:</label>
+                                        <input type="date" id="inicio_garantia">
+                                    </div>
+
+
+                                    <div class="grupo-input">
+                                        <label>Fim da garantia:</label>
+                                        <input type="date" id="fim_garantia">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-            </div>
+            </section>
 
-            <div class="linha-rodape-servico">
-                <div class="grupo-input input-data">
-                    <label>Data:</label>
-                    <input type="date" id="data_servico">
+            <!-- Bloco 3: Histórico -->
+            <section class="card">
+
+                <div class="cabecalho-secao" onclick="toggleHistorico()">
+                    <h2 id="titulo-historico">Histórico de Serviços ▾</h2>
                 </div>
-            </div>
 
-        </div>
+                <div id="lista-historico"></div>
 
-    </div>
-
-</section>
-
-<!-- Bloco 3: Histórico -->
-<section class="card">
-
-    <div class="cabecalho-secao" onclick="toggleHistorico()">
-        <h2 id="titulo-historico">Histórico de Serviços ▾</h2>
-    </div>
-
-    <div id="lista-historico"></div>
-
-</section>
+            </section>
 
             <!-- Botões Finais -->
             <div class="area-acoes-finais">
