@@ -13,12 +13,27 @@ async function carregarDashboard() {
     const clientesUnicos = new Set(data.map(item => item.nome));
     document.getElementById('total-clientes').innerText = clientesUnicos.size;
 
-    // 3. Calcula valores do mês atual (Julho 2026)
-    const mesAtual = "2026-07";
-    const dadosMesAtual = data.filter(item => item.data && item.data.startsWith(mesAtual));
-    
-    const totalBruto = dadosMesAtual.reduce((acc, curr) => acc + (parseFloat(curr.valor_bruto) || 0), 0);
-    const totalLiquido = dadosMesAtual.reduce((acc, curr) => acc + (parseFloat(curr.valor_liquido) || 0), 0);
+    // 3. Calcula valores do mês atual
+    const hoje = new Date();
+
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+
+    const mesAtual = `${ano}-${mes}`;
+
+    const dadosMesAtual = data.filter(item =>
+        item.data && item.data.startsWith(mesAtual)
+    );
+
+    const totalBruto = dadosMesAtual.reduce(
+        (acc, curr) => acc + (parseFloat(curr.valor_bruto) || 0),
+        0
+    );
+
+    const totalLiquido = dadosMesAtual.reduce(
+        (acc, curr) => acc + (parseFloat(curr.valor_liquido) || 0),
+        0
+    );
 
     // 4. Atualiza o HTML
     document.getElementById('mes-bruto').innerText = `R$ ${totalBruto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;

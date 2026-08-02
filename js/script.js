@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (cliente.foto) {
                 document.getElementById('foto-cliente').src = cliente.foto;
+
+                fotoTemporaria = cliente.foto;
             }
         }
 
@@ -548,7 +550,8 @@ async function atualizarCadastroCliente() {
         nome: document.getElementById("nome").value.trim(),
         cidade: document.getElementById("cidade").value.trim(),
         bairro: document.getElementById("bairro").value.trim(),
-        whatsapp: document.getElementById("whatsapp").value.trim()
+        whatsapp: document.getElementById("whatsapp").value.trim(),
+        foto: fotoTemporaria
     };
 
     const { error } = await window.supabaseClient
