@@ -390,6 +390,34 @@ if (formCliente) {
             return;
         }
 
+        const temGarantia = document.getElementById('tem_garantia').checked;
+
+        const dados = {
+
+            nome: document.getElementById('nome').value,
+            cidade: document.getElementById('cidade').value,
+            bairro: document.getElementById('bairro').value,
+            whatsapp: document.getElementById('whatsapp').value,
+            servico: document.getElementById('servico').value,
+            equipamento: document.getElementById('equipamento').value,
+            material: document.getElementById('material').value,
+            valor_bruto: converterParaNumero(document.getElementById('valor_bruto').value),
+            valor_liquido: converterParaNumero(document.getElementById('valor_liquido').value),
+            data: document.getElementById('data_servico').value,
+
+            garantia: temGarantia,
+            garantia_inicio: temGarantia
+                ? document.getElementById('inicio_garantia').value
+                : null,
+            garantia_fim: temGarantia
+                ? document.getElementById('fim_garantia').value
+                : null,
+
+            user_id: user.id,
+            foto: fotoTemporaria
+
+        };
+/*
         const dados = {
 
             nome: document.getElementById('nome').value,
@@ -414,16 +442,16 @@ if (formCliente) {
 
             garantia: document.getElementById('tem_garantia').checked,
 
-            garantia_inicio: document.getElementById('inicio_garantia').value,
+            garantia_inicio: document.getElementById('inicio_garantia').value || null,
 
-            garantia_fim: document.getElementById('fim_garantia').value,
+            garantia_fim: document.getElementById('fim_garantia').value || null,
 
             user_id: user.id,
 
             foto: fotoTemporaria
 
         };
-
+*/
 
         const { error } = await window.supabaseClient.from('clientes').insert([dados]);
 
