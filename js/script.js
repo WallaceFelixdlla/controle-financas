@@ -417,7 +417,7 @@ if (formCliente) {
             foto: fotoTemporaria
 
         };
-/*
+/*se adicima não der certo, vouta para o código abaixo, que estava funcionando antes da última edição
         const dados = {
 
             nome: document.getElementById('nome').value,

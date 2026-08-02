@@ -47,6 +47,7 @@ async function carregarListaClientes() {
     const { data, error } = await window.supabaseClient
         .from('clientes')
         .select('nome, foto, garantia')
+        .order('id', { ascending: false });
 
     if (error) {
         console.error(error);
