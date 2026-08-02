@@ -46,7 +46,7 @@ async function carregarListaClientes() {
 
     const { data, error } = await window.supabaseClient
         .from('clientes')
-        .select('nome, foto, garantia')
+        .select('nome, foto, garantia, garantia_inicio, garantia_fim')
         .order('id', { ascending: false });
 
     if (error) {
@@ -55,6 +55,51 @@ async function carregarListaClientes() {
     }
     const mapaClientes = new Map();
 
+
+
+    
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    data.forEach(cliente => {
+
+        const existente = mapaClientes.get(cliente.nome);
+
+        // Verifica se este registro possui garantia válida
+        let garantiaAtiva = false;
+
+        if (
+            cliente.garantia &&
+            cliente.garantia_fim
+        ) {
+            const fim = new Date(cliente.garantia_fim);
+            fim.setHours(0, 0, 0, 0);
+
+            garantiaAtiva = fim >= hoje;
+        }
+
+        if (!existente) {
+
+            cliente.garantia = garantiaAtiva;
+            mapaClientes.set(cliente.nome, cliente);
+
+        } else {
+
+            // Mantém a foto caso o registro antigo não tenha
+            if (!existente.foto && cliente.foto) {
+                existente.foto = cliente.foto;
+            }
+
+            // Se qualquer serviço tiver garantia válida,
+            // o cliente inteiro fica com garantia.
+            if (garantiaAtiva) {
+                existente.garantia = true;
+            }
+
+        }
+
+    });
+/*
     data.forEach(cliente => {
 
         const existente = mapaClientes.get(cliente.nome);
@@ -69,7 +114,7 @@ async function carregarListaClientes() {
         }
 
     });
-
+*/
 
     todosClientes = Array.from(mapaClientes.values());
 
