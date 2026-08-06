@@ -35,6 +35,15 @@ async function carregarDashboard() {
         0
     );
 
+    const nomesMeses = [
+    "Janeiro", "Fevereiro", "Março", "Abril",
+    "Maio", "Junho", "Julho", "Agosto",
+    "Setembro", "Outubro", "Novembro", "Dezembro"
+    ];
+
+    document.getElementById("titulo-mes-atual").textContent =
+        `${nomesMeses[hoje.getMonth()]} ${ano}`;
+
     // 4. Atualiza o HTML
     document.getElementById('mes-bruto').innerText = `R$ ${totalBruto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
     document.getElementById('mes-liquido').innerText = `R$ ${totalLiquido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
@@ -99,22 +108,6 @@ async function carregarListaClientes() {
         }
 
     });
-/*
-    data.forEach(cliente => {
-
-        const existente = mapaClientes.get(cliente.nome);
-
-        if (!existente) {
-            mapaClientes.set(cliente.nome, cliente);
-        } 
-        
-        // Se já existe, mas o novo registro tem foto, usa ele
-        else if (!existente.foto && cliente.foto) {
-            mapaClientes.set(cliente.nome, cliente);
-        }
-
-    });
-*/
 
     todosClientes = Array.from(mapaClientes.values());
 

@@ -417,41 +417,6 @@ if (formCliente) {
             foto: fotoTemporaria
 
         };
-/*se adicima não der certo, vouta para o código abaixo, que estava funcionando antes da última edição
-        const dados = {
-
-            nome: document.getElementById('nome').value,
-
-            cidade: document.getElementById('cidade').value,
-
-            bairro: document.getElementById('bairro').value,
-
-            whatsapp: document.getElementById('whatsapp').value,
-
-            servico: document.getElementById('servico').value,
-
-            equipamento: document.getElementById('equipamento').value,
-
-            material: document.getElementById('material').value,
-
-            valor_bruto: converterParaNumero(document.getElementById('valor_bruto').value),
-
-            valor_liquido: converterParaNumero(document.getElementById('valor_liquido').value),
-
-            data: document.getElementById('data_servico').value,
-
-            garantia: document.getElementById('tem_garantia').checked,
-
-            garantia_inicio: document.getElementById('inicio_garantia').value || null,
-
-            garantia_fim: document.getElementById('fim_garantia').value || null,
-
-            user_id: user.id,
-
-            foto: fotoTemporaria
-
-        };
-*/
 
         const { error } = await window.supabaseClient.from('clientes').insert([dados]);
 
