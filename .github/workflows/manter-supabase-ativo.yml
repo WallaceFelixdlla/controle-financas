@@ -11,10 +11,9 @@ jobs:
     steps:
       - name: Lança despesa automática de 1 centavo
         run: |
-          curl --fail --silent --show-error \
+          curl --fail-with-body --silent --show-error \
             -X POST "${{ secrets.SUPABASE_URL }}/rest/v1/despesas" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Content-Type: application/json" \
             -H "Prefer: return=minimal" \
             -d '{"descricao": "Ping automático", "valor": 0.01}'
