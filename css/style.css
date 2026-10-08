@@ -95,11 +95,16 @@ body {
 
 /* Card Clientes */
 .card-clientes {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    flex: 0 0 260px;
+    padding: 20px;
+    height: auto;
+    min-height: 0;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.card-clientes .btn-adicionar {
+    margin-top: 5px;
 }
 
 .card-clientes h2 {
@@ -116,6 +121,23 @@ body {
     margin: 15px 0;
 }
 
+.resumo-clientes {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+}
+
+.card-clientes h2 {
+    margin:0;
+    font-size:16px;
+}
+
+.valor-azul {
+    margin:0;
+    font-size:36px;
+}
+
 /* Botão Moderno */
 .btn-adicionar {
     background-color: #4318FF;
@@ -124,9 +146,11 @@ body {
     padding: 14px;
     border-radius: 12px;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 20px;
     cursor: pointer;
-    width: 100%;
+    width:auto;
+    padding: 12pxpx 25px;  
+    align-self:flex-start;    
     transition: 0.2s;
 }
 
@@ -722,3 +746,249 @@ body {
 
     border: 2px solid white;
 }
+
+/* ===== Cards recolhíveis ===== */
+
+.titulo-toggle{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    user-select:none;
+}
+
+#icone-financeiro,
+#icone-historico{
+    font-size:18px;
+    transition:transform .25s ease;
+}
+
+#conteudo-financeiro,
+#conteudo-historico{
+    overflow:hidden;
+    max-height:0;
+    opacity:0;
+    transition:
+        max-height .30s ease,
+        opacity .25s ease;
+}
+
+#conteudo-financeiro.aberto,
+#conteudo-historico.aberto{
+    max-height:500px;
+    opacity:1;
+}
+
+.rotacionar{
+    transform:rotate(180deg);
+}
+
+/* ===== Lista de clientes recolhível ===== */
+.card-lista-clientes { width: 100%; }
+.card-lista-clientes h2 {
+    font-size: 18px;
+    color: #2B3674;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#conteudo-clientes {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .35s ease, opacity .25s ease;
+}
+#conteudo-clientes.aberto {
+    max-height: 5000px;
+    opacity: 1;
+    padding-top: 20px;
+}
+#icone-clientes { font-size: 18px; transition: transform .25s ease; }
+
+/* ===== Botão Adicionar Cliente com contador ===== */
+.btn-adicionar-total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    background-color: #4318FF;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 18px 25px;
+    border-radius: 16px;
+    box-shadow: 0px 8px 20px rgba(67, 24, 255, 0.25);
+    transition: background-color .2s, transform .2s;
+}
+
+.btn-adicionar-total:hover {
+    background-color: #2b0bba;
+    transform: translateY(-3px);
+}
+
+.contador-clientes {
+    background: white;
+    color: #4318FF;
+    font-size: 18px;
+    font-weight: 700;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== Despesas ===== */
+.valor-vermelho { color: #EE5D50; font-size: 28px; font-weight: 700; }
+.txt-vermelho { color: #EE5D50; font-weight: 700; }
+
+#conteudo-despesas {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .30s ease, opacity .25s ease;
+}
+#conteudo-despesas.aberto { max-height: 700px; opacity: 1; }
+#icone-despesas { font-size: 18px; transition: transform .25s ease; }
+
+.card-despesas { width: 100%; }
+.card-despesas h2 { font-size: 18px; color: #2B3674; }
+
+.form-despesa {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+.form-despesa input {
+    flex: 1;
+    min-width: 130px;
+    padding: 12px;
+    border: 2px solid #E0E5F2;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+}
+.form-despesa input:focus { border-color: #4318FF; }
+.form-despesa .btn-adicionar { font-size: 15px; padding: 12px 25px; }
+
+.lista-despesas { list-style: none; max-height: 300px; overflow-y: auto; }
+.item-despesa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F4F7FE;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #2B3674;
+}
+.desp-vazio { color: #A3AED0; font-size: 14px; padding: 8px; list-style: none; }
+.btn-x {
+    background: none;
+    border: none;
+    color: #EE5D50;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* ===== Histórico de despesas ===== */
+.card-historico-despesas { width: 100%; }
+.card-historico-despesas h2 {
+    font-size: 18px;
+    color: #2B3674;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#conteudo-historico-despesas {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .30s ease, opacity .25s ease;
+}
+#conteudo-historico-despesas.aberto { max-height: 800px; opacity: 1; overflow-y: auto; }
+#icone-historico-despesas { font-size: 18px; transition: transform .25s ease; }
+
+.card-historico-despesas .lista-historico { margin-top: 15px; }
+
+.mes-desp summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+    color: #A3AED0;
+}
+.mes-desp summary::-webkit-details-marker { display: none; }
+.mes-desp summary strong { color: #2B3674; font-size: 15px; }
+
+.itens-desp-hist {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 2px solid #E0E5F2;
+}
+.linha-desp-hist {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    color: #2B3674;
+    font-size: 14px;
+}
+
+/* ===== Botão Adicionar Cliente com contador ===== */
+.btn-adicionar-total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    background-color: #4318FF;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 18px 25px;
+    border-radius: 16px;
+    box-shadow: 0px 8px 20px rgba(67, 24, 255, 0.25);
+    transition: background-color .2s, transform .2s;
+}
+.btn-adicionar-total:hover { background-color: #2b0bba; transform: translateY(-3px); }
+
+.contador-clientes {
+    background: white;
+    color: #4318FF;
+    font-size: 18px;
+    font-weight: 700;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== Lista de clientes recolhível ===== */
+.card-lista-clientes { width: 100%; }
+.card-lista-clientes h2 {
+    font-size: 18px;
+    color: #2B3674;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#conteudo-clientes {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .35s ease, opacity .25s ease;
+}
+#conteudo-clientes.aberto { max-height: 5000px; opacity: 1; padding-top: 20px; }
+#icone-clientes { font-size: 18px; transition: transform .25s ease; }

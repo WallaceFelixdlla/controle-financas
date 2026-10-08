@@ -19,26 +19,29 @@
 
         <!-- Seção dos Resumos Financeiros e Clientes -->
         <section class="painel-resumo">
-            
-            <!-- Card Total de Clientes -->
-            <div class="card card-clientes">
-                <h2>Total clientes</h2>
-                <p id="total-clientes" class="valor-azul"></p>
-                <a href="cliente.html" class="btn-adicionar" style="text-decoration: none; display: block; text-align: center;">Adicionar Cliente</a>
-            </div>
 
             <!-- Card Financeiro do Mês -->
             <div class="card card-financeiro">
-                <h2 id="titulo-mes-atual"></h2>
-                <div class="valores-mes">
-                    <div class="bloco-valor">
-                        <h3>Mês bruto</h3>
-                        <p id="mes-bruto" class="valor-verde"></p>
-                    </div>
-                    <div class="bloco-valor">
-                        <h3>Mês líquido</h3>
-                        <p id="mes-liquido" class="valor-verde"></p>
-                    </div>
+
+                    <h2 class="titulo-toggle" onclick="toggleCard('financeiro')">
+                        <span id="titulo-mes-atual"></span>
+                        <span id="icone-financeiro">⌄</span>
+                    </h2>
+
+                    <div class="valores-mes" id="conteudo-financeiro">
+                        <div class="bloco-valor">
+                            <h3>Mês bruto</h3>
+                            <p id="mes-bruto" class="valor-verde"></p>
+                        </div>
+                        <div class="bloco-valor">
+                            <h3>Mês líquido</h3>
+                            <p id="mes-liquido" class="valor-verde"></p>
+
+                            <div class="bloco-valor">
+                                <h3>Despesas</h3>
+                                <p id="mes-despesas" class="valor-vermelho"></p>
+                            </div>
+                        </div>
                 </div>
             </div>
 
@@ -48,10 +51,55 @@
         <section class="painel-inferior">
 
             <!-- HISTÓRICO -->
-            <div class="card card-historico">
-                <h2>Histórico</h2>
+        <div class="card card-historico">
+
+            <h2 class="titulo-toggle" onclick="toggleCard('historico')">
+                <span>Histórico</span>
+                <span id="icone-historico">⌄</span>
+            </h2>
+
+            <div id="conteudo-historico">
                 <ul class="lista-historico" id="lista-historico-ul"></ul>
             </div>
+
+        </div>
+
+                <!-- DESPESAS DO MÊS -->
+        <div class="card card-despesas">
+            <h2 class="titulo-toggle" onclick="toggleCard('despesas')">
+                <span>Despesas do mês</span>
+                <span id="icone-despesas">⌄</span>
+            </h2>
+
+            <div id="conteudo-despesas">
+                <div class="form-despesa">
+                    <input type="text" id="desp-desc" placeholder="Descrição (ex: Internet)">
+                    <input type="text" id="desp-valor" inputmode="decimal" placeholder="Valor">
+                    <input type="date" id="desp-data">
+                    <button id="desp-add" class="btn-adicionar">Adicionar</button>
+                </div>
+                <ul id="lista-despesas" class="lista-despesas"></ul>
+            </div>
+        </div>
+
+        <!-- HISTÓRICO DE DESPESAS -->
+        <div class="card card-historico-despesas">
+            <h2 class="titulo-toggle" onclick="toggleCard('historico-despesas')">
+                <span>Histórico de despesas</span>
+                <span id="icone-historico-despesas">⌄</span>
+            </h2>
+
+            <div id="conteudo-historico-despesas">
+                <ul class="lista-historico" id="lista-historico-despesas"></ul>
+            </div>
+        </div>
+
+                        
+            <!-- Botão Adicionar Cliente com total -->
+            <a href="cliente.html" class="btn-adicionar-total">
+                <span>Adicionar Cliente</span>
+                <span class="contador-clientes" id="total-clientes"></span>
+            </a>
 
             <!-- FILTRO -->
             <div class="card card-filtro">
@@ -61,18 +109,30 @@
                     type="text"
                     id="busca-cliente"
                     placeholder="Digite o nome do cliente..."
-                    oninput="filtrarClientes()">
+                    oninput="filtrarClientes(); abrirClientes()">
 
             </div>
+        
+            <!-- CLIENTES (recolhível) -->
+            <div class="card card-lista-clientes">
 
-            <!-- AVATARES -->
-            <div id="lista-clientes" class="lista-clientes"></div>
+                <h2 class="titulo-toggle" onclick="toggleCard('clientes')">
+                    <span>Clientes</span>
+                    <span id="icone-clientes">⌄</span>
+                </h2>
+
+                <div id="conteudo-clientes">
+                    <div id="lista-clientes" class="lista-clientes"></div>
+                </div>
+
+            </div>
 
         </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase.js"></script>
+    <script src="js/despesas.js"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/script.js"></script>
     <script>

@@ -1,5 +1,4 @@
 async function carregarDashboard() {
-    // 1. Busca todos os registros
     const { data, error } = await window.supabaseClient
         .from('clientes')
         .select('nome, valor_bruto, valor_liquido, data');
@@ -9,16 +8,14 @@ async function carregarDashboard() {
         return;
     }
 
-    // 2. Calcula Total de Clientes Únicos
+    // Total de clientes únicos
     const clientesUnicos = new Set(data.map(item => item.nome));
     document.getElementById('total-clientes').innerText = clientesUnicos.size;
 
-    // 3. Calcula valores do mês atual
+    // Mês atual
     const hoje = new Date();
-
     const ano = hoje.getFullYear();
     const mes = String(hoje.getMonth() + 1).padStart(2, "0");
-
     const mesAtual = `${ano}-${mes}`;
 
     const dadosMesAtual = data.filter(item =>
@@ -26,27 +23,29 @@ async function carregarDashboard() {
     );
 
     const totalBruto = dadosMesAtual.reduce(
-        (acc, curr) => acc + (parseFloat(curr.valor_bruto) || 0),
-        0
+        (acc, curr) => acc + (parseFloat(curr.valor_bruto) || 0), 0
+    );
+    const liquidoClientes = dadosMesAtual.reduce(
+        (acc, curr) => acc + (parseFloat(curr.valor_liquido) || 0), 0
     );
 
-    const totalLiquido = dadosMesAtual.reduce(
-        (acc, curr) => acc + (parseFloat(curr.valor_liquido) || 0),
-        0
-    );
+    // Despesas do mês
+    const despesas = await buscarDespesas();
+    const totalDespesas = somaDespesasDoMes(despesas, mesAtual);
+    const totalLiquido = liquidoClientes - totalDespesas;
 
     const nomesMeses = [
-    "Janeiro", "Fevereiro", "Março", "Abril",
-    "Maio", "Junho", "Julho", "Agosto",
-    "Setembro", "Outubro", "Novembro", "Dezembro"
+        "Janeiro", "Fevereiro", "Março", "Abril",
+        "Maio", "Junho", "Julho", "Agosto",
+        "Setembro", "Outubro", "Novembro", "Dezembro"
     ];
 
     document.getElementById("titulo-mes-atual").textContent =
         `${nomesMeses[hoje.getMonth()]} ${ano}`;
 
-    // 4. Atualiza o HTML
-    document.getElementById('mes-bruto').innerText = `R$ ${totalBruto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    document.getElementById('mes-liquido').innerText = `R$ ${totalLiquido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    document.getElementById('mes-bruto').innerText = fmtMoeda(totalBruto);
+    document.getElementById('mes-despesas').innerText = fmtMoeda(totalDespesas);
+    document.getElementById('mes-liquido').innerText = fmtMoeda(totalLiquido);
 }
 
 document.addEventListener('DOMContentLoaded', carregarDashboard);
@@ -214,4 +213,18 @@ function atualizarData() {
     const dataFormatada = hoje.toLocaleDateString("pt-BR", opcoes);
 
     elemento.textContent = dataFormatada.charAt(0).toUpperCase() + dataFormatada.slice(1);
+}
+
+// ======================================
+// Abre e fecha os cards do Dashboard
+// ======================================
+
+function toggleCard(tipo) {
+
+    const conteudo = document.getElementById(`conteudo-${tipo}`);
+    const icone = document.getElementById(`icone-${tipo}`);
+
+    conteudo.classList.toggle("aberto");
+    icone.classList.toggle("rotacionar");
+
 }
