@@ -1,0 +1,635 @@
+/* ==========================================================
+   TEMA FUTURISTA - violeta + amarelo
+   Carregue DEPOIS do style.css. Para voltar ao visual antigo,
+   basta remover a linha <link> deste arquivo nos HTMLs.
+========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg: #0A0618;
+    --card: #140B2E;
+    --card-interno: #1E1347;
+    --linha: rgba(155, 120, 255, 0.22);
+    --violeta: #7C3AED;
+    --violeta-escuro: #4C1D95;
+    --violeta-claro: #A78BFA;
+    --amarelo: #FFD21F;
+    --texto: #EDE8FF;
+    --mudo: #A196CC;
+    --rosa: #FF5D8F;
+    --tinta: #1A0B3B; /* texto escuro sobre o amarelo */
+}
+
+/* ---------- Base ---------- */
+* {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(900px 500px at 85% -10%, rgba(124, 58, 237, 0.35), transparent 60%),
+        radial-gradient(700px 400px at -10% 40%, rgba(76, 29, 149, 0.35), transparent 60%),
+        linear-gradient(rgba(155, 120, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(155, 120, 255, 0.05) 1px, transparent 1px);
+    background-size: auto, auto, 36px 36px, 36px 36px;
+    background-attachment: fixed;
+    color: var(--texto);
+}
+
+h1, h2, h3, .valor-verde, .valor-vermelho, .valor-azul, .contador-clientes {
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+/* ---------- Cabeçalho ---------- */
+.cabecalho {
+    background: linear-gradient(120deg, #2A0E6B 0%, #5B21B6 55%, #7C3AED 100%);
+    border: 1px solid var(--linha);
+    border-radius: 18px;
+    box-shadow: inset 0 -3px 0 var(--amarelo), 0 12px 40px rgba(124, 58, 237, 0.35);
+}
+
+.cabecalho h1 {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.cabecalho span {
+    background: rgba(255, 210, 31, 0.12);
+    color: var(--amarelo);
+    border: 1px solid rgba(255, 210, 31, 0.4);
+    backdrop-filter: none;
+}
+
+#btn-logout {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: none;
+}
+
+#btn-logout:hover {
+    background: var(--amarelo);
+    color: var(--tinta);
+    border-color: var(--amarelo);
+}
+
+/* ---------- Cards ---------- */
+.card {
+    background-color: var(--card);
+    border: 1px solid var(--linha);
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(167, 139, 250, 0.55);
+    box-shadow: 0 12px 36px rgba(124, 58, 237, 0.28);
+}
+
+.card h2,
+.card-historico h2,
+.card-filtro h2,
+.card-financeiro h2,
+.card-despesas h2,
+.card-historico-despesas h2,
+.card-lista-clientes h2 {
+    color: var(--texto);
+    font-weight: 600;
+}
+
+.card-financeiro h2 {
+    border-bottom: 1px solid var(--linha);
+}
+
+.titulo-toggle span:last-child {
+    color: var(--amarelo);
+}
+
+/* ---------- Valores ---------- */
+.bloco-valor {
+    background-color: var(--card-interno);
+    border: 1px solid var(--linha);
+}
+
+.bloco-valor h3 {
+    color: var(--mudo);
+}
+
+.valor-verde,
+.txt-verde {
+    color: var(--amarelo);
+}
+
+.valor-verde {
+    text-shadow: 0 0 18px rgba(255, 210, 31, 0.35);
+}
+
+.valor-vermelho,
+.txt-vermelho {
+    color: var(--rosa);
+}
+
+.valor-azul {
+    color: var(--amarelo);
+}
+
+/* ---------- Históricos ---------- */
+.lista-historico li {
+    background: var(--card-interno);
+    border: 1px solid var(--linha);
+    color: var(--mudo);
+}
+
+.lista-historico li strong {
+    color: var(--texto);
+}
+
+.mes-desp summary {
+    color: var(--mudo);
+}
+
+.mes-desp summary strong {
+    color: var(--texto);
+}
+
+.itens-desp-hist {
+    border-top: 1px solid var(--linha);
+}
+
+.linha-desp-hist {
+    color: var(--texto);
+}
+
+/* ---------- Despesas do mês ---------- */
+.item-despesa {
+    background: var(--card-interno);
+    border: 1px solid var(--linha);
+    color: var(--texto);
+}
+
+.desp-vazio {
+    color: var(--mudo);
+}
+
+.btn-x {
+    color: var(--rosa);
+}
+
+/* ---------- Campos de texto ---------- */
+.card-filtro input,
+.form-despesa input,
+.grupo-input input,
+.form-dados input {
+    background-color: #0F0826;
+    color: var(--texto);
+    border: 2px solid var(--linha);
+    color-scheme: dark;
+}
+
+.card-filtro input::placeholder,
+.form-despesa input::placeholder,
+.grupo-input input::placeholder {
+    color: var(--mudo);
+}
+
+.card-filtro input:focus,
+.form-despesa input:focus,
+.grupo-input input:focus,
+.form-dados input:focus {
+    border-color: var(--amarelo);
+    background-color: #0F0826;
+    box-shadow: 0 0 0 3px rgba(255, 210, 31, 0.15);
+}
+
+.grupo-input label,
+.form-dados label {
+    color: var(--violeta-claro);
+}
+
+/* ---------- Botões principais (amarelo) ---------- */
+.btn-adicionar,
+.btn-adicionar-total {
+    background: var(--amarelo);
+    color: var(--tinta);
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(255, 210, 31, 0.25);
+}
+
+.btn-adicionar:hover,
+.btn-adicionar-total:hover {
+    background: #FFE066;
+    box-shadow: 0 10px 30px rgba(255, 210, 31, 0.4);
+}
+
+.contador-clientes {
+    background: var(--tinta);
+    color: var(--amarelo);
+}
+
+/* ---------- Lista de clientes ---------- */
+.avatar p {
+    color: var(--texto);
+}
+
+.avatar img {
+    border: 3px solid #2A1A5E;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.6), 0 6px 18px rgba(0, 0, 0, 0.5);
+    transition: box-shadow .25s, border-color .25s;
+}
+
+.avatar:hover img {
+    border-color: var(--amarelo);
+    box-shadow: 0 0 0 2px var(--amarelo), 0 0 20px rgba(255, 210, 31, 0.45);
+}
+
+.bolinha-garantia {
+    background-color: var(--amarelo);
+    border: 2px solid var(--card);
+    box-shadow: 0 0 10px rgba(255, 210, 31, 0.7);
+}
+
+/* ---------- Tela do cliente (cliente.html) ---------- */
+.btn-voltar {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-voltar:hover {
+    background: var(--amarelo);
+    color: var(--tinta);
+}
+
+.cabecalho-secao {
+    background: linear-gradient(90deg, var(--violeta-escuro), var(--violeta));
+    border-left: 4px solid var(--amarelo);
+    color: #fff;
+}
+
+.foto-perfil img {
+    border: 3px solid #2A1A5E;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.6);
+}
+
+.btn-alterar-foto {
+    color: var(--amarelo);
+}
+
+.icones-anexo {
+    color: var(--mudo);
+}
+
+.item-servico {
+    background: var(--card-interno);
+    color: var(--texto);
+}
+
+.item-servico:hover {
+    background: var(--violeta-escuro);
+}
+
+.btn-verde-destaque,
+.btn-verde {
+    background-color: var(--amarelo);
+    color: var(--tinta);
+}
+
+.btn-verde-destaque:hover,
+.btn-verde:hover {
+    background-color: #FFE066;
+}
+
+.btn-vermelho {
+    background-color: var(--rosa);
+}
+
+.btn-vermelho:hover {
+    background-color: #E64679;
+}
+
+.btn-laranja {
+    background-color: var(--violeta);
+}
+
+.btn-laranja:hover {
+    background-color: #6D28D9;
+}
+
+/* ---------- Acessibilidade ---------- */
+:focus-visible {
+    outline: 2px solid var(--amarelo);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
+
+/* ==========================================================
+   PÁGINA DO CLIENTE (cliente.html)
+========================================================== */
+
+/* Formulários não devem "pular" ao passar o mouse */
+.card-formulario:hover,
+form .card:hover {
+    transform: none;
+}
+
+/* Títulos das seções clicáveis (Dados / Serviço / Histórico) */
+.cabecalho-secao {
+    transition: filter .2s;
+}
+
+.cabecalho-secao:hover {
+    filter: brightness(1.15);
+}
+
+.cabecalho-secao h2 {
+    color: #fff;
+}
+
+/* Foto do cliente */
+#foto-cliente {
+    cursor: pointer;
+    transition: box-shadow .25s;
+}
+
+#foto-cliente:hover {
+    box-shadow: 0 0 0 2px var(--amarelo), 0 0 20px rgba(255, 210, 31, 0.4);
+}
+
+.foto-perfil small {
+    color: var(--mudo);
+}
+
+/* Garantia */
+.area-garantia {
+    margin-top: 10px;
+    padding: 14px 16px;
+    background: var(--card-interno);
+    border: 1px solid var(--linha);
+    border-radius: 12px;
+}
+
+.area-garantia label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: var(--texto);
+}
+
+.grupo-input input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    accent-color: var(--amarelo);
+    cursor: pointer;
+}
+
+#dados-garantia {
+    margin-top: 14px;
+}
+
+/* Histórico de serviços (montado pelo JavaScript) */
+#lista-historico {
+    color: var(--texto);
+}
+
+#lista-historico .item-servico {
+    border: 1px solid var(--linha);
+    border-radius: 12px;
+}
+
+/* ===== Correção: cartões do histórico de serviços ===== */
+#lista-historico > * {
+    background: var(--card-interno) !important;
+    border: 1px solid var(--linha) !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+}
+
+#lista-historico > * * {
+    color: var(--texto) !important;
+    border-color: var(--linha) !important;
+}
+
+/* ==========================================================
+   TÍTULOS PADRONIZADOS (todos os cards com o mesmo estilo)
+========================================================== */
+
+.card h2.titulo-toggle,
+.card-filtro h2,
+.card-despesas h2,
+.card-historico-despesas h2,
+.card-lista-clientes h2,
+.card-historico h2,
+.card-financeiro h2 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: none;
+    line-height: 1.2;
+    color: var(--texto);
+}
+
+/* Cards recolhíveis: sem sobras de espaço quando fechados */
+.card h2.titulo-toggle {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.card-filtro h2 {
+    margin-bottom: 14px;
+}
+
+/* Espaço entre o título e o conteúdo, só quando o card está aberto */
+#conteudo-financeiro.aberto,
+#conteudo-historico.aberto,
+#conteudo-despesas.aberto,
+#conteudo-historico-despesas.aberto,
+#conteudo-clientes.aberto {
+    padding-top: 18px;
+}
+
+.card-historico-despesas .lista-historico {
+    margin-top: 0;
+}
+
+.form-despesa {
+    margin-top: 0;
+}
+
+/* Setinha em botão redondo */
+.card h2.titulo-toggle span:last-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--amarelo);
+    background: rgba(255, 210, 31, 0.08);
+    border: 1px solid var(--linha);
+    border-radius: 50%;
+}
+
+/* ==========================================================
+   CABEÇALHO NOVO (painel de comando)
+========================================================== */
+
+.cabecalho {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px 16px;
+    padding: 26px 30px;
+    background:
+        linear-gradient(90deg, #FFD21F 0%, rgba(255, 210, 31, 0) 75%) left bottom / 100% 3px no-repeat,
+        linear-gradient(120deg, #2A0E6B 0%, #5B21B6 55%, #7C3AED 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 12px 40px rgba(124, 58, 237, 0.35);
+}
+
+/* Grade tecnológica que aparece mais forte à direita */
+.cabecalho::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+    background-size: 28px 28px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 15%, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 15%, #000 100%);
+    pointer-events: none;
+}
+
+/* Brilho amarelo no canto */
+.cabecalho::after {
+    content: '';
+    position: absolute;
+    top: -90px;
+    right: -60px;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(255, 210, 31, 0.28), transparent 65%);
+    pointer-events: none;
+}
+
+.cabecalho > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Título com marcador amarelo */
+.cabecalho h1 {
+    order: 1;
+    flex: 1 1 280px;
+    min-width: 0;
+    margin: 0;
+    font-size: clamp(1.3rem, 2.4vw + 0.6rem, 1.9rem);
+    line-height: 1.2;
+    text-shadow: 0 0 22px rgba(167, 139, 250, 0.6);
+}
+
+.cabecalho h1::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 1.05em;
+    margin-right: 14px;
+    vertical-align: -0.15em;
+    background: var(--amarelo);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(255, 210, 31, 0.75);
+}
+
+/* Data com indicador "ao vivo" */
+.cabecalho span#data-atual {
+    order: 2;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    background: rgba(10, 6, 24, 0.45);
+    color: #FFE066;
+    border: 1px solid rgba(255, 210, 31, 0.4);
+    font-size: 13px;
+}
+
+#data-atual::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    margin-right: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--amarelo);
+    box-shadow: 0 0 8px var(--amarelo);
+    animation: pulso 2s ease-in-out infinite;
+}
+
+@keyframes pulso {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Botão Sair sempre no canto direito */
+.cabecalho #btn-logout {
+    order: 3;
+    margin-left: auto;
+}
+
+/* ==========================================================
+   CELULAR
+========================================================== */
+
+@media (max-width: 768px) {
+
+    .cabecalho {
+        padding: 20px 18px;
+        border-radius: 16px;
+    }
+
+    .cabecalho span#data-atual {
+        font-size: 12px;
+        padding: 7px 12px;
+    }
+
+    .cabecalho::after {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .card:not(.card-formulario) {
+        padding: 22px 18px;
+    }
+
+    .card h2.titulo-toggle,
+    .card-filtro h2 {
+        font-size: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #data-atual::before {
+        animation: none;
+    }
+}
